@@ -1,8 +1,18 @@
+import React from "react";
 
-
-export default function Post({ user, img, numeroDeCurtidas, curtidoPor }) {
+export default function Post({ user, img, numeroDeCurtidas, curtidoPor, liked }) {
+  
+  const [like, setLike] = React.useState(liked);
+  
+  function likePost (event) {
+   
+    if (!like && event.detail === 2) {
+      setLike(true);
+    }
+    
+  }
     return (
-        <div className="post">
+        <div className="post"  onClick={likePost}>
             <div className="topo">
                 <div className="usuario">
                     <img src={'assets/img/' + user + '.svg'} alt='' />
@@ -18,7 +28,7 @@ export default function Post({ user, img, numeroDeCurtidas, curtidoPor }) {
             <div class="fundo">
                 <div class="acoes">
                   <div>
-                    <ion-icon name="heart-outline"></ion-icon>
+                    <ion-icon name="heart-outline" color={like ? 'primary' : 'danger'} onClick={() => setLike(!like)}></ion-icon>
                     <ion-icon name="chatbubble-outline"></ion-icon>
                     <ion-icon name="paper-plane-outline"></ion-icon>
                   </div>
